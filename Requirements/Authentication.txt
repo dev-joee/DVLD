@@ -1,0 +1,51 @@
+System Authentication Includes
+	- Login
+	- Users Management
+	- Account Settings
+
+Database Table
+	- Users
+
+Properties
+	- ID (PK, int)
+	- PersonID (FK -> People)
+	- Full Name (People.FK -> First Name + ... + Last Name)
+	- Username (string, unique)
+	- IsActive (bool)
+
+
+Notes:
+Login
+	- Username and password are correct
+	- User is Active in the system
+	- Login Screen has a Remember Me option to perform State Management
+		- if remember me is true, save user info to a text file and next time login fill them automatically in the login screen
+
+Account Settings
+	- Current User Info
+		- Show Current User Details
+	- Change Password
+		- implemented in User Management
+	- Sign Out
+		- closes current form and gets you back to login screen
+
+User Management
+	- Operations
+		- CRUD
+			- List All
+			- Add New
+				- First Filter People and show Person Details (personal info)
+				- proceed to create a user linked to this person
+					- if the person is already a user terminate the process, if not create a new user and link it to this person
+				- Add Username and Password (login info)
+					- Validate Confirm Password
+				- Once user is added the UserID is generated
+				- While i am at the Add New User Menu there is a button to redirect me to Add New Person Menu
+			- Update
+				- While i am at the Update User Menu there is a button to redirect me to Update Person Menu
+			- Delete
+		- Sort
+		- Filter
+			- filter by any property
+				- if filter property is IsActive show a drop down menu with (All, Active, Not Active)
+		- Change Password

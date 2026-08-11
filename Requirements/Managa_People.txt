@@ -1,0 +1,39 @@
+Database Table: People
+Operation:
+	- CRUD
+		- List All
+		- Add New
+		- Update
+		- Delete
+		- Show Details
+	- Sort
+	- Filter (by anything) -> returns a list to be showen instead of regular List All
+
+Properties:
+	- ID (PK, int)
+	- First Name
+	- Second Name
+	- Third Name
+	- Last Name
+	- National Number (String, Unique)
+	- Date of Birth (More than 18 years)
+	- Gender
+	- Phone (String)
+	- Email
+	- Country (FK, Drop Down List -> Countries Table)
+	- Address (String)
+	- Image (Path (for now))
+
+Notes:
+Profile Image
+	- for profile images, copy selected image into a seprate directory and change its name to a GUID string and save this relative path into the DB
+	- when updating a profile image, delete old picture from the folder and the database and then add the new one
+
+Deleteting Person
+	- if there is no FKs linked to that person -> delete that person, if there are -> do not allow delete that person (using database refrencial integrity)
+
+Filtering
+	- choose what property you want to filter by from a drop down list, and then write your filter term in a text box that will be shown
+
+Show Details Screen
+	- the screen has "update" and does not have a delete button

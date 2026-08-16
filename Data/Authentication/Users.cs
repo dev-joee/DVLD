@@ -300,4 +300,35 @@ public class Users
 
         return Filtered;
     }
+    public static int IsPersonRegistered(int PersonID)
+    {
+        int UserID = 0;
+
+        var connection = new SqlConnection(Configration.ConnectionString);
+
+        var query = "SELECT UserID FROM Users WHERE PersonID = @PersonID";
+
+        var command = new SqlCommand(query, connection);
+        command.Parameters.AddWithValue("@PersonID", PersonID);
+
+        try
+        {
+            connection.Open();
+
+            var result = command.ExecuteScalar(); // found -> (object) UserID | not fount -> DBNull.Value 
+        
+            if (!(result == null || result == DBNull.Value)) // if it is not null so the person exists -> true (person is already registered)
+                UserID = (int) result;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+        finally
+        {
+            connection.Close();
+        }
+
+        return UserID;
+    }
 }

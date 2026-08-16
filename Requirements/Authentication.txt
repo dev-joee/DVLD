@@ -27,7 +27,7 @@ Account Settings
 		- Show Current User Details
 	- Change Password (~Data)
 		- implemented in User Management
-	- Sign Out (data access code is inside Data/Authentication/Signin Class)
+	- Sign Out (data access code is inside Data/Authentication/Signin Class) (~Data)
 		- closes current form and gets you back to login screen
 
 User Management

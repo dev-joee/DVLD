@@ -6,18 +6,8 @@ public class AccountSettings
 {
     public static User? GetCurrentUser()
     {
-        User? CurrentUser = null;
-
-        try
-        {
-            CurrentUser =  Users.GetById(Global.CurrentUserID);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
-
-        return CurrentUser;
+        return Users.GetById(Global.CurrentUserID); // Exception is already handeled in the GetById method
+        // if not fount or something went wrong => returns null
     }
 
     public static bool ChangePassword (string NewPassword)

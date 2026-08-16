@@ -217,6 +217,51 @@ public class Users
 
         return user;
     }
+    public static User? GetByUsername(string username)
+    {
+        var connection = new SqlConnection(Configration.ConnectionString);
+        
+        var query = @"SELECT * FROM People
+                    WHERE Username=@Username";
+
+        var command = new SqlCommand(query, connection);
+        command.Parameters.AddWithValue("@Username", username);
+    
+        User? user = null;
+
+        try
+        {
+            connection.Open();
+
+            var data = command.ExecuteReader();
+        
+            if (data.Read())
+            {
+                user = new User
+                {
+                    ID = (int) data["UserID"],
+                    PersonID = (int) data["PersonID"],
+                    Username = username,
+                    Password = (string) data["Password"],
+                    IsActive = (bool) data["LastName"],
+                };
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+        finally
+        {
+            connection.Close();
+        }
+
+        return user;
+    }
     public static List<User> Filter(string FilterProperty, string Term)
     {
         Term = Term.ToLower();

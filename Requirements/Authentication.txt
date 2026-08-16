@@ -7,11 +7,12 @@ Database Table
 	- Users
 
 Properties
-	- ID (PK, int)
-	- PersonID (FK -> People)
-	- Full Name (People.FK -> First Name + ... + Last Name)
-	- Username (string, unique)
-	- IsActive (bool)
+	~ ID (PK, int)
+	~ PersonID (FK -> People)
+	~ Full Name (People.FK -> First Name + ... + Last Name)
+	~ Username (string, unique)
+	~ Password (string, unique)
+	~ IsActive (bool)
 
 
 Notes:
@@ -22,18 +23,18 @@ Login
 		- if remember me is true, save user info to a text file and next time login fill them automatically in the login screen
 
 Account Settings
-	- Current User Info
+	- Current User Info (~Data)
 		- Show Current User Details
-	- Change Password
+	- Change Password (~Data)
 		- implemented in User Management
-	- Sign Out
+	- Sign Out (data access code is inside Data/Authentication/Signin Class)
 		- closes current form and gets you back to login screen
 
 User Management
 	- Operations
 		- CRUD
-			- List All
-			- Add New
+			- List All (~Data)
+			- Add New (~Data)
 				- First Filter People and show Person Details (personal info)
 				- proceed to create a user linked to this person
 					- if the person is already a user terminate the process, if not create a new user and link it to this person
@@ -41,11 +42,10 @@ User Management
 					- Validate Confirm Password
 				- Once user is added the UserID is generated
 				- While i am at the Add New User Menu there is a button to redirect me to Add New Person Menu
-			- Update
+			- Update (~Data)
 				- While i am at the Update User Menu there is a button to redirect me to Update Person Menu
-			- Delete
+			- Delete (~Data)
 		- Sort
-		- Filter
+		- Filter (~Data)
 			- filter by any property
 				- if filter property is IsActive show a drop down menu with (All, Active, Not Active)
-		- Change Password

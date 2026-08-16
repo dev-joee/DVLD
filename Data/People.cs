@@ -260,7 +260,7 @@ public class People
         
         var connection = new SqlConnection(Configration.ConnectionString);
         
-        var query = "SELECT * FROM People WHERE @FilterProperty = @Term";
+        var query = "SELECT PersonID FROM People WHERE @FilterProperty = @Term";
 
         var command = new SqlCommand(query, connection);
         command.Parameters.AddWithValue("@FilterProperty", FilterProperty);
@@ -274,23 +274,7 @@ public class People
             
             while (data.Read())
             {
-                var person = new Person
-                {
-                    ID = (int) data["PersonID"],
-                    NationalNumber = (string) data["NationalNo"],
-                    FirstName = (string) data["FirstName"],
-                    SecondName = (string) data["SecondName"],
-                    ThirdName = (string) data["ThirdName"],
-                    LastName = (string) data["LastName"],
-                    BirthDate = (DateTime) data["DateOfBirth"],
-                    Address = (string) data["Address"],
-                    Phone = (string) data["Phone"],
-                    Email = (string) data["Email"],
-                    CountryID = (int) data["NationalityCountryID"],
-                    ImageRelativePath = (string) data["ImagePath"]
-                };
-
-                Filtered.Add(person);
+                Filtered.Add(GetById((int) data["PersonID"]));
             }
 
             data.Close();

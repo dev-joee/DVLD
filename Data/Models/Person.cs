@@ -1,4 +1,5 @@
-﻿using Data.Models.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using Data.Models.Enums;
 
 namespace Data.Models;
 

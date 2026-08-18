@@ -2,6 +2,6 @@
 
 public enum Gender
 {
-    Male = 'M',
-    Female = 'F'
+    Male = 0,
+    Female = 1
 }

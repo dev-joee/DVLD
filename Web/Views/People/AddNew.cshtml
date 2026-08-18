@@ -1,0 +1,79 @@
+@using Data.Models
+@model Person
+
+<form asp-action="AddNew" asp-controller="People" method="post">
+
+    <div>
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" required />
+    </div>
+
+    <div>
+        <label asp-for="SecondName"></label>
+        <input asp-for="SecondName" required />
+    </div>
+
+    <div>
+        <label asp-for="ThirdName"></label>
+        <input asp-for="ThirdName" required />
+    </div>
+
+    <div>
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" required />
+    </div>
+
+    <div>
+        <label asp-for="NationalNumber"></label>
+        <input asp-for="NationalNumber" required />
+    </div>
+
+    <div>
+        <label asp-for="BirthDate"></label>
+        <input asp-for="BirthDate" type="date" required />
+    </div>
+
+    <div>
+        <label>Male</label>
+        <input asp-for="Gender" type="radio" value="0" required />
+
+        <label>Female</label>
+        <input asp-for="Gender" type="radio" value="1" required />
+    </div>
+
+    <div>
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" required />
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" type="email" required />
+    </div>
+
+    <div>
+        <label asp-for="CountryID"></label>
+
+        <select asp-for="CountryID" required>
+            <option value="">Choose a Country</option>
+
+            @foreach (var country in ViewBag.Countries)
+            {
+                <option value="@country.ID">@country.Name</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label asp-for="Address"></label>
+        <input asp-for="Address" required />
+    </div>
+
+    <div>
+        <label asp-for="ImageRelativePath"></label>
+        <input asp-for="ImageRelativePath" required />
+    </div>
+
+    <input type="submit" value="Add New Person" />
+
+</form>

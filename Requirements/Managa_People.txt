@@ -1,7 +1,7 @@
 Database Table: People
 Operation:
 	~ CRUD
-		~ List All
+		~ List All (~ web (index))
 		~ Add New
 		~ Update
 		~ Delete

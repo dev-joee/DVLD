@@ -27,7 +27,7 @@ public class ManagePeople
             return 0;
         }
 
-        return InsertedRecordID;
+        return InsertedRecordID; // 0 -> adding failed
     }
 
     public static void UpdatePerson(int ID, Person UpdatedPersonInfo) // or i can update with ID

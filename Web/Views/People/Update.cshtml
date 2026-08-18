@@ -1,0 +1,91 @@
+@using Data.Models
+@model Person
+
+<h2>Update Person</h2>
+
+<form asp-controller="People" asp-action="Update" method="post">
+    <input type="hidden" asp-for="ID" />
+
+    <div>
+        <label>National Number</label>
+        <input asp-for="NationalNumber" />
+    </div>
+
+    <div>
+        <label>First Name</label>
+        <input asp-for="FirstName" />
+    </div>
+
+    <div>
+        <label>Second Name</label>
+        <input asp-for="SecondName" />
+    </div>
+
+    <div>
+        <label>Third Name</label>
+        <input asp-for="ThirdName" />
+    </div>
+
+    <div>
+        <label>Last Name</label>
+        <input asp-for="LastName" />
+    </div>
+
+    <div>
+        <label>Birth Date</label>
+        <input asp-for="BirthDate" type="date" />
+    </div>
+
+    <div>
+        <label>Gender</label>
+
+        <label>
+            @if (Model.Gender == Data.Models.Enums.Gender.Male) {
+                <input asp-for="Gender" type="radio" value="0" checked/>
+            }
+            else {
+                <input asp-for="Gender" type="radio" value="0"/>
+            }
+            Male
+        </label>
+
+        <label>
+            @if (Model.Gender == Data.Models.Enums.Gender.Female) {
+                <input asp-for="Gender" type="radio" value="0" checked/>
+            }
+            else {
+                <input asp-for="Gender" type="radio" value="0"/>
+            }
+            Female
+        </label>
+    </div>
+
+    <div>
+        <label>Phone</label>
+        <input asp-for="Phone" />
+    </div>
+
+    <div>
+        <label>Email</label>
+        <input asp-for="Email" type="email" />
+    </div>
+
+    <div>
+        <label>Country</label>
+        <input asp-for="Country" />
+    </div>
+
+    <div>
+        <label>Address</label>
+        <input asp-for="Address" />
+    </div>
+
+    <div>
+        <label>Image Path</label>
+        <input asp-for="ImageRelativePath" />
+    </div>
+
+    <input type="hidden" asp-for="CountryID" />
+
+    <button type="submit">Update</button>
+</form>

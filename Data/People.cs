@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.Data.SqlClient;
 using Data.Models;
 using Data.Models.Enums;
+using System.Data;
 
 public class People
 {
@@ -42,9 +43,29 @@ public class People
                     Address = (string) data["Address"],
                     Phone = (string) data["Phone"],
                     Email = (string) data["Email"],
-                    CountryID = (int) data["NationalityCountryID"],
-                    ImageRelativePath = (string) data["ImagePath"]
+                    CountryID = (int) data["NationalityCountryID"], 
                 };
+                
+                                    
+                if (data["ImagePath"] == DBNull.Value || data["ImagePath"] == null)
+                {
+                    person.ImageRelativePath = null;
+                }
+                else
+                {
+                    person.ImageRelativePath = (string) data["ImagePath"];
+                }
+
+                Country? country = Countries.GetPersonCountry(person.CountryID);
+
+                if (country == null)
+                {
+                    throw new Exception("Error while fetching country name, debug [Data.People.GetAll]");
+                }
+                else
+                {
+                    person.Country = country.Name;
+                }  
 
                 All.Add(person);
             }
@@ -62,13 +83,12 @@ public class People
 
         return All;
     }
+
     public static bool AddNew(Person person, ref int ID)
     {
         var connection = new SqlConnection(Configration.ConnectionString);
         
-        var query = @"INSERT INTO DVLD.dbo.People (PersonID, NationalNo, FirstName, SecondName, ThirdName, LastName, DateOfBirth, Gendor, Address, Phone, Email, NationalityCountryID, ImagePath)
-                    VALUES(@NationalNo, @FirstName, @SecondName, @ThirdName, @LastName, @DateOfBirth, @Gendor, @Address, @Phone, @NationalityCountryID, @ImagePath);
-                    SELECT SCOPE_IDENTITY();";
+        var query = "INSERT INTO DVLD.dbo.People (NationalNo, FirstName, SecondName, ThirdName, LastName, DateOfBirth, Gendor, Address, Phone, Email, NationalityCountryID, ImagePath) VALUES(@NationalNo, @FirstName, @SecondName, @ThirdName, @LastName, @DateOfBirth, @Gendor, @Address, @Phone, @Email, @NationalityCountryID, @ImagePath); SELECT SCOPE_IDENTITY();";
 
         var command = new SqlCommand(query, connection);
         command.Parameters.AddWithValue("@NationalNo", person.NationalNumber);
@@ -121,9 +141,7 @@ public class People
 
         var connection = new SqlConnection(Configration.ConnectionString);
         
-        var query = @"UPDATE DVLD.dbo.People
-                    SET NationalNo='@NationalNo', FirstName='@FirstName', SecondName='@SecondName', ThirdName='@ThirdName', LastName='@LastName', DateOfBirth='@DateOfBirth', Gendor=@Gendor, Address='@Address', Phone='@Phone', Email='@Email', NationalityCountryID=@NationalityCountryID, ImagePath='@ImagePath'
-                    WHERE PersonID=@PersonID;";
+        var query = "UPDATE DVLD.dbo.People SET NationalNo=@NationalNo, FirstName=@FirstName, SecondName=@SecondName, ThirdName=@ThirdName, LastName=@LastName, DateOfBirth=@DateOfBirth, Gendor=@Gendor, Address=@Address, Phone=@Phone, Email=@Email, NationalityCountryID=@NationalityCountryID, ImagePath=@ImagePath WHERE PersonID=@PersonID;";
 
         var command = new SqlCommand(query, connection);
         command.Parameters.AddWithValue("@PersonID", ID);
@@ -132,7 +150,7 @@ public class People
         command.Parameters.AddWithValue("@SecondName", person.SecondName);
         command.Parameters.AddWithValue("@ThirdName", person.ThirdName);
         command.Parameters.AddWithValue("@LastName", person.LastName);
-        command.Parameters.AddWithValue("@DateOfBirth", person.BirthDate);
+        command.Parameters.Add("@DateOfBirth", SqlDbType.Date).Value = person.BirthDate;
         command.Parameters.AddWithValue("@Gendor", person.Gender == Gender.Male ? 0 : 1);
         command.Parameters.AddWithValue("@Address", person.Address);
         command.Parameters.AddWithValue("@Phone", person.Phone);
@@ -224,6 +242,7 @@ public class People
                 person = new Person
                 {
                     ID = ID,
+                    NationalNumber = (string) data["NationalNo"],
                     FirstName = (string) data["FirstName"],
                     SecondName = (string) data["SecondName"],
                     ThirdName = (string) data["ThirdName"],
@@ -235,6 +254,17 @@ public class People
                     CountryID = (int) data["NationalityCountryID"],
                     ImageRelativePath = (string) data["ImagePath"]
                 };
+
+                Country? country = Countries.GetPersonCountry(person.CountryID);
+
+                if (country == null)
+                {
+                    throw new Exception("Error while fetching country name, debug [Data.People.GetAll]");
+                }
+                else
+                {
+                    person.Country = country.Name;
+                }                
             }
             else
             {
